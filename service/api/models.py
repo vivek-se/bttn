@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 
 class Artist(models.Model):
@@ -48,3 +49,10 @@ class Track(models.Model):
     @property
     def spotify(self):
         return "{}{}/{}".format(settings.DSP_BASE, self.id, "spotify")
+    
+
+class Playlist(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=200, default='')
+    track_id = ArrayField(models.CharField(max_length=10), null=True) 
+    
